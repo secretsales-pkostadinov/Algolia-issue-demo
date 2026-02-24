@@ -16,7 +16,19 @@ import { Panel } from '../components/Panel';
 import { QueryId } from '../components/QueryId';
 import { client } from '../lib/client';
 
+import { useRefinementList } from 'react-instantsearch';
+
+function VirtualFacet({ attribute }: { attribute: string }) {
+  const { items } = useRefinementList({ attribute });
+
+  return null;
+}
+
 export default function Search() {
+
+  const facets = ['brand', 'hierarchicalCategories.lvl0', 'categories', 'price'];
+
+
   return (
     <InstantSearchNext
       searchClient={client}
@@ -24,6 +36,9 @@ export default function Search() {
       routing
       insights={false}
     >
+      {facets.map((attribute) => (
+        <VirtualFacet key={attribute} attribute={attribute} />
+      ))}
       <Configure filters={`categories:audio`} />
       <div className="Container">
         <div>

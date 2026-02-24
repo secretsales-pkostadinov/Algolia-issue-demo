@@ -21,10 +21,9 @@ export const createAlgoliaSearchClient = (appId: string, apiKey: string) => {
 
     return originalRequest(request, requestOptions).finally(
       () => {
-        console.log(`[Algolia] Request: ${JSON.stringify(request)}`);
         const duration = performance.now() - start;
         console.log('[Algolia]', {
-          request: request,
+          request: JSON.stringify(request, null, 2),
           method: request.method,
           path: request.path,
           duration: `${duration.toFixed(2)}ms`,
